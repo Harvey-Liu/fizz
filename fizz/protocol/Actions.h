@@ -47,6 +47,14 @@ struct WriteToSocket {
   folly::small_vector<TLSContent, 4> contents;
 #endif
   folly::WriteFlags flags{folly::WriteFlags::NONE};
+
+  WriteToSocket() = default;
+
+  WriteToSocket(WriteToSocket&& rhs) 
+    : contents(std::move(rhs.contents)) 
+    , flags(rhs.flags) {
+
+  }
 };
 
 /**

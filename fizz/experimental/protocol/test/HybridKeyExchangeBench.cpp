@@ -18,7 +18,7 @@ using namespace fizz;
  * KEM it's done in getKeyShare(). This simulates the first client operation.
  */
 void clientKeyShareGenerationBench(uint64_t n, NamedGroup namedGroup) {
-  std::unique_ptr<KeyExchange> kex;
+  std::shared_ptr<KeyExchange> kex;
   BENCHMARK_SUSPEND {
     auto f = std::make_unique<HybridKeyExFactory>();
     kex = f->makeKeyExchange(namedGroup, Factory::KeyExchangeMode::Client);
@@ -36,7 +36,7 @@ void clientKeyShareGenerationBench(uint64_t n, NamedGroup namedGroup) {
  * KEM. This simulates the only server operation.
  */
 void serverSharedSecretDerivationBench(uint64_t n, NamedGroup namedGroup) {
-  std::unique_ptr<KeyExchange> kex;
+  std::shared_ptr<KeyExchange> kex;
   std::vector<std::unique_ptr<folly::IOBuf>> clientKeyShareIOBuf;
   std::vector<folly::ByteRange> clientKeyShare;
   BENCHMARK_SUSPEND {
@@ -63,7 +63,7 @@ void serverSharedSecretDerivationBench(uint64_t n, NamedGroup namedGroup) {
  * generateSharedSecret(). This simulates the second client operation.
  */
 void clientSharedSecretDerivationBench(uint64_t n, NamedGroup namedGroup) {
-  std::unique_ptr<KeyExchange> kex;
+  std::shared_ptr<KeyExchange> kex;
   std::vector<std::unique_ptr<folly::IOBuf>> serverKeyShareIOBuf;
   std::vector<folly::ByteRange> serverKeyShare;
   BENCHMARK_SUSPEND {

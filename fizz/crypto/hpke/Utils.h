@@ -103,7 +103,7 @@ HashFunction getHashFunctionForKEM(KEMId kemId);
  *         keypair
  * @throws std::runtime_error   On invalid code points.
  */
-std::unique_ptr<KeyExchange> makeKeyExchange(KEMId kemId);
+std::shared_ptr<KeyExchange> makeKeyExchange(KEMId kemId);
 
 /**
  * fizz::hpke::nenc returns the size of the serialized public component (`enc`)

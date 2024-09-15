@@ -11,7 +11,7 @@
 
 namespace fizz {
 
-std::unique_ptr<KeyExchange> OpenSSLFactory::makeKeyExchange(
+std::shared_ptr<KeyExchange> OpenSSLFactory::makeKeyExchange(
     NamedGroup group,
     KeyExchangeMode mode) const {
   (void)mode;

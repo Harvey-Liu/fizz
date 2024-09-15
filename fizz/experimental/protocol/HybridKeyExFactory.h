@@ -15,7 +15,7 @@
 namespace fizz {
 class HybridKeyExFactory : public OpenSSLFactory {
  public:
-  std::unique_ptr<KeyExchange> makeKeyExchange(
+  std::shared_ptr<KeyExchange> makeKeyExchange(
       NamedGroup group,
       KeyExchangeMode mode) const override {
     switch (group) {

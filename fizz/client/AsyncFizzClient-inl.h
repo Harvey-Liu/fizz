@@ -19,7 +19,8 @@ AsyncFizzClientT<SM>::AsyncFizzClientT(
       fizzContext_(std::move(fizzContext)),
       extensions_(extensions),
       visitor_(*this),
-      fizzClient_(state_, transportReadBuf_, readAeadOptions_, visitor_, this) {
+      state_(new State()),
+      fizzClient_(*state_, transportReadBuf_, readAeadOptions_, visitor_, this) {
 }
 
 template <typename SM>
@@ -34,7 +35,8 @@ AsyncFizzClientT<SM>::AsyncFizzClientT(
       fizzContext_(std::move(fizzContext)),
       extensions_(extensions),
       visitor_(*this),
-      fizzClient_(state_, transportReadBuf_, readAeadOptions_, visitor_, this) {
+      state_(new State()),
+      fizzClient_(*state_, transportReadBuf_, readAeadOptions_, visitor_, this) {
 }
 
 template <typename SM>
@@ -640,7 +642,7 @@ void AsyncFizzClientT<SM>::ActionMoveVisitor::operator()(WaitForData& wfd) {
 
 template <typename SM>
 void AsyncFizzClientT<SM>::ActionMoveVisitor::operator()(MutateState& mutator) {
-  mutator(client_.state_);
+  mutator(*client_.state_);
 }
 
 template <typename SM>

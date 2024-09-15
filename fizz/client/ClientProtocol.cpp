@@ -412,10 +412,10 @@ static folly::Optional<CachedPsk> validatePsk(
   return psk;
 }
 
-static std::map<NamedGroup, std::unique_ptr<KeyExchange>> getKeyExchangers(
+static std::map<NamedGroup, std::shared_ptr<KeyExchange>> getKeyExchangers(
     const Factory& factory,
     const std::vector<NamedGroup>& groups) {
-  std::map<NamedGroup, std::unique_ptr<KeyExchange>> keyExchangers;
+  std::map<NamedGroup, std::shared_ptr<KeyExchange>> keyExchangers;
   for (auto group : groups) {
     auto kex = factory.makeKeyExchange(group, Factory::KeyExchangeMode::Client);
     kex->generateKeyPair();
@@ -430,7 +430,7 @@ static ClientHello getClientHello(
     const std::vector<CipherSuite>& supportedCiphers,
     const std::vector<ProtocolVersion>& supportedVersions,
     const std::vector<NamedGroup>& supportedGroups,
-    const std::map<NamedGroup, std::unique_ptr<KeyExchange>>& shares,
+    const std::map<NamedGroup, std::shared_ptr<KeyExchange>>& shares,
     const std::vector<SignatureScheme>& supportedSigSchemes,
     const std::vector<PskKeyExchangeMode>& supportedPskModes,
     const folly::Optional<std::string>& hostname,
@@ -1059,7 +1059,7 @@ static auto negotiateParameters(
     const ServerHello& shlo,
     const std::vector<ProtocolVersion>& supportedVersions,
     const std::vector<CipherSuite>& supportedCiphers,
-    const std::map<NamedGroup, std::unique_ptr<KeyExchange>>& keyExchangers) {
+    const std::map<NamedGroup, std::shared_ptr<KeyExchange>>& keyExchangers) {
   ProtocolVersion version;
   CipherSuite cipher;
   std::tie(version, cipher) =
@@ -1444,9 +1444,9 @@ static HrrParams negotiateParameters(
   return negotiated;
 }
 
-static std::map<NamedGroup, std::unique_ptr<KeyExchange>> getHrrKeyExchangers(
+static std::map<NamedGroup, std::shared_ptr<KeyExchange>> getHrrKeyExchangers(
     const Factory& factory,
-    std::map<NamedGroup, std::unique_ptr<KeyExchange>> previous,
+    std::map<NamedGroup, std::shared_ptr<KeyExchange>> previous,
     Optional<NamedGroup> negotiatedGroup) {
   if (negotiatedGroup) {
     if (previous.find(*negotiatedGroup) != previous.end()) {

@@ -20,8 +20,8 @@ namespace fizz {
 class HybridKeyExchange : public KeyExchange {
  public:
   HybridKeyExchange(
-      std::unique_ptr<KeyExchange> first,
-      std::unique_ptr<KeyExchange> second);
+      std::shared_ptr<KeyExchange> first,
+      std::shared_ptr<KeyExchange> second);
 
   ~HybridKeyExchange() override = default;
 
@@ -32,12 +32,12 @@ class HybridKeyExchange : public KeyExchange {
   std::unique_ptr<folly::IOBuf> generateSharedSecret(
       folly::ByteRange keyShare) const override;
 
-  std::unique_ptr<KeyExchange> clone() const override;
+  std::shared_ptr<KeyExchange> clone() const override;
 
   std::size_t getExpectedKeyShareSize() const override;
 
  private:
-  std::unique_ptr<KeyExchange> firstKex_;
-  std::unique_ptr<KeyExchange> secondKex_;
+  std::shared_ptr<KeyExchange> firstKex_;
+  std::shared_ptr<KeyExchange> secondKex_;
 };
 } // namespace fizz

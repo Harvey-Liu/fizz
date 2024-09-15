@@ -19,7 +19,7 @@ using namespace fizz::test;
 namespace fizz {
 namespace ech {
 namespace test {
-ClientHello getChloOuterWithExt(std::unique_ptr<KeyExchange> kex) {
+ClientHello getChloOuterWithExt(std::shared_ptr<KeyExchange> kex) {
   // Setup ECH extension
   auto echConfigContent = getECHConfigContent();
   auto supportedECHConfig = SupportedECHConfig{
@@ -51,7 +51,7 @@ ClientHello getChloOuterWithExt(std::unique_ptr<KeyExchange> kex) {
 // Like above, but this handles HRR ECH and also outputs the enc value used
 // for the initial round as well as the first outer client hello
 ClientHello getChloOuterHRRWithExt(
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     Buf& enc,
     ClientHello& initialOuterChlo) {
   // Setup ECH extension

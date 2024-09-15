@@ -24,6 +24,9 @@ class ClientStateMachine {
   using ProcessingActions = Actions;
   using CompletedActions = Actions;
 
+  ClientStateMachine() = default;
+  ClientStateMachine(ClientStateMachine&& rhs) = default;
+
   virtual ~ClientStateMachine() = default;
 
   virtual Actions processConnect(

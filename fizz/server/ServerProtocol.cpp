@@ -1396,7 +1396,7 @@ EventHandler<ServerTypes, StateEnum::ExpectingClientHello, Event::ClientHello>::
         KeyExchangeType keyExchangeType;
         SemiFuture<Optional<AsyncKeyExchange::DoKexResult>> kexResultFuture =
             folly::none;
-        std::unique_ptr<KeyExchange> kex = nullptr;
+        std::shared_ptr<KeyExchange> kex = nullptr;
 
         if (!pskMode || *pskMode != PskKeyExchangeMode::psk_ke) {
           Optional<Buf> clientShare;

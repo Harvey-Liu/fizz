@@ -65,7 +65,7 @@ class FizzUtil {
    *
    */
 
-  static std::unique_ptr<KeyExchange> createKeyExchangeFromBuf(
+  static std::shared_ptr<KeyExchange> createKeyExchangeFromBuf(
       hpke::KEMId kemId,
       folly::ByteRange privKey);
 

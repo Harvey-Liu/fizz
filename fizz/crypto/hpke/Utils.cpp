@@ -153,7 +153,7 @@ std::unique_ptr<Hkdf> makeHpkeHkdf(
   }
 }
 
-std::unique_ptr<KeyExchange> makeKeyExchange(KEMId kemId) {
+std::shared_ptr<KeyExchange> makeKeyExchange(KEMId kemId) {
   switch (kemId) {
     case KEMId::secp256r1:
       return std::make_unique<OpenSSLECKeyExchange<P256>>();

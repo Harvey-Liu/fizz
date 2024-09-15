@@ -22,7 +22,7 @@ namespace test {
 
 class MockKeyExchange : public KeyExchange {
  public:
-  explicit MockKeyExchange(std::unique_ptr<KeyExchange> actualKex)
+  explicit MockKeyExchange(std::shared_ptr<KeyExchange> actualKex)
       : actualKex_(std::move(actualKex)) {}
   void generateKeyPair() override {}
 
@@ -35,7 +35,7 @@ class MockKeyExchange : public KeyExchange {
     return actualKex_->generateSharedSecret(keyShare);
   }
 
-  std::unique_ptr<KeyExchange> clone() const override {
+  std::shared_ptr<KeyExchange> clone() const override {
     return nullptr;
   }
 
@@ -44,7 +44,7 @@ class MockKeyExchange : public KeyExchange {
   }
 
  private:
-  std::unique_ptr<KeyExchange> actualKex_;
+  std::shared_ptr<KeyExchange> actualKex_;
   folly::ssl::EvpPkeyUniquePtr privateKey_;
 };
 
@@ -61,7 +61,7 @@ testEncapDecap(DHKEM dhkem, std::unique_ptr<folly::IOBuf> publicKey) {
       std::move(encapResult.sharedSecret), std::move(gotSharedKey));
 }
 
-DHKEM getDHKEM(std::unique_ptr<KeyExchange> actualKex, NamedGroup group) {
+DHKEM getDHKEM(std::shared_ptr<KeyExchange> actualKex, NamedGroup group) {
   auto prefix = "HPKE-v1";
   auto hkdf = std::make_unique<fizz::hpke::Hkdf>(
       folly::IOBuf::copyBuffer(prefix),

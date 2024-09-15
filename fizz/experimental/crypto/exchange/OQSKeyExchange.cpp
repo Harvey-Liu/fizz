@@ -131,7 +131,7 @@ std::unique_ptr<folly::IOBuf> OQSServerKeyExchange::generateSharedSecret(
   return sharedSecret;
 }
 
-std::unique_ptr<KeyExchange> OQSClientKeyExchange::clone() const {
+std::shared_ptr<KeyExchange> OQSClientKeyExchange::clone() const {
   if (!isInitiated()) {
     throw std::runtime_error(
         "OQSClientKeyExchange::clone(): keys not generated!");
@@ -147,7 +147,7 @@ std::unique_ptr<KeyExchange> OQSClientKeyExchange::clone() const {
   return copy;
 }
 
-std::unique_ptr<KeyExchange> OQSServerKeyExchange::clone() const {
+std::shared_ptr<KeyExchange> OQSServerKeyExchange::clone() const {
   // We have to break the requirements that the keys are generated as the server
   // side is not required to generate the key. We check cipher text instead.
   if (!isInitiated()) {

@@ -242,7 +242,7 @@ std::unique_ptr<folly::IOBuf> getRecordDigest(
 }
 
 hpke::SetupResult constructHpkeSetupResult(
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     const SupportedECHConfig& supportedConfig) {
   const std::unique_ptr<folly::IOBuf> prefix =
       folly::IOBuf::copyBuffer("HPKE-v1");
@@ -646,7 +646,7 @@ std::unique_ptr<hpke::HpkeContext> setupDecryptionContext(
     const ECHConfig& echConfig,
     HpkeSymmetricCipherSuite cipherSuite,
     const std::unique_ptr<folly::IOBuf>& encapsulatedKey,
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     uint64_t seqNum) {
   const std::unique_ptr<folly::IOBuf> prefix =
       folly::IOBuf::copyBuffer("HPKE-v1");

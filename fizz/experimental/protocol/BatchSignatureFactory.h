@@ -62,7 +62,7 @@ class BatchSignatureFactory : public Factory {
     return original_->makeHandshakeContext(cipher);
   }
 
-  std::unique_ptr<KeyExchange> makeKeyExchange(
+  std::shared_ptr<KeyExchange> makeKeyExchange(
       NamedGroup group,
       KeyExchangeMode mode) const override {
     return original_->makeKeyExchange(group, mode);

@@ -126,7 +126,7 @@ class ClientProtocolTest : public ProtocolTest<ClientTypes, Actions> {
     auto mockKex = std::make_unique<MockKeyExchange>();
     mockKex_ = mockKex.get();
     mockKex_->setDefaults();
-    std::map<NamedGroup, std::unique_ptr<KeyExchange>> kexs;
+    std::map<NamedGroup, std::shared_ptr<KeyExchange>> kexs;
     kexs.emplace(NamedGroup::x25519, std::move(mockKex));
     state_.keyExchangers() = std::move(kexs);
     Random random;
@@ -2213,7 +2213,7 @@ TEST_F(ClientProtocolTest, TestServerHelloHrrBadGroup) {
   setupExpectingServerHelloAfterHrr();
   auto mockKex = std::make_unique<MockKeyExchange>();
   mockKex->setDefaults();
-  std::map<NamedGroup, std::unique_ptr<KeyExchange>> kexs;
+  std::map<NamedGroup, std::shared_ptr<KeyExchange>> kexs;
   kexs.emplace(NamedGroup::secp256r1, std::move(mockKex));
   state_.keyExchangers() = std::move(kexs);
 

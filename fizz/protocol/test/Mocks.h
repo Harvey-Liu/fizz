@@ -248,7 +248,7 @@ class MockFactory : public OpenSSLFactory {
       (CipherSuite cipher),
       (const));
   MOCK_METHOD(
-      std::unique_ptr<KeyExchange>,
+      std::shared_ptr<KeyExchange>,
       makeKeyExchange,
       (NamedGroup group, Factory::KeyExchangeMode mode),
       (const));
@@ -341,7 +341,7 @@ class MockFactory : public OpenSSLFactory {
 class MockAsyncKexFactory : public OpenSSLFactory {
  public:
   MOCK_METHOD(
-      std::unique_ptr<KeyExchange>,
+      std::shared_ptr<KeyExchange>,
       makeKeyExchange,
       (NamedGroup group, Factory::KeyExchangeMode mode),
       (const));

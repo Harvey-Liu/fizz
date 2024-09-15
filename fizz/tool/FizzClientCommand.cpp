@@ -129,6 +129,18 @@ class Connection : public AsyncSocket::ConnectCallback,
         echConfigs_(std::move(echConfigs)),
         registerEventCallback_(registerEventCallback) {}
 
+
+  Connection(Connection&& rhs)
+      : evb_(rhs.evb_),
+        clientContext_(std::move(rhs.clientContext_)),
+        sni_(std::move(rhs.sni_)),
+        verifier_(std::move(rhs.verifier_)),
+        willResume_(rhs.willResume_),
+        proxyTarget_(std::move(rhs.proxyTarget_)),
+        extensions_(std::move(rhs.extensions_)),
+        echConfigs_(std::move(rhs.echConfigs_)),
+        registerEventCallback_(std::move(rhs.registerEventCallback_)) {}
+
   void connect(const SocketAddress& addr) {
     sock_ = AsyncSocket::UniquePtr(new AsyncSocket(evb_));
     sock_->connect(this, addr);
