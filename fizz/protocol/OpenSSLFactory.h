@@ -25,7 +25,7 @@ namespace fizz {
 
 class OpenSSLFactory : public DefaultFactory {
  public:
-  [[nodiscard]] std::unique_ptr<KeyExchange> makeKeyExchange(
+  [[nodiscard]] std::shared_ptr<KeyExchange> makeKeyExchange(
       NamedGroup group,
       KeyExchangeMode mode) const override;
 

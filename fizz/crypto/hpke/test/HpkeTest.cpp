@@ -1916,7 +1916,7 @@ void setOpenSSLPrivKey(
   kex->setPrivateKey(std::move(key));
 }
 
-std::unique_ptr<KeyExchange> generateAuthKex(
+std::shared_ptr<KeyExchange> generateAuthKex(
     NamedGroup group,
     std::string privateKey,
     std::string publicKey) {
@@ -1955,7 +1955,7 @@ std::unique_ptr<fizz::hpke::Hkdf> genHKDF(HashFunction f) {
 }
 
 SetupParam getSetupParam(
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     NamedGroup group,
     HashFunction func,
     CipherSuite suite,
@@ -2022,7 +2022,7 @@ TEST(HpkeTest, TestSetup) {
         *encapCipher, _setKey(TrafficKeyMatcher(&encapExpectedTrafficKey)))
         .Times(1);
 
-    std::unique_ptr<KeyExchange> encapKex;
+    std::shared_ptr<KeyExchange> encapKex;
     switch (testParam.group) {
       case NamedGroup::x25519: {
         auto kex = std::make_unique<HpkeMockX25519KeyExchange>();
@@ -2079,7 +2079,7 @@ TEST(HpkeTest, TestSetup) {
         *decapCipher, _setKey(TrafficKeyMatcher(&decapExpectedTrafficKey)))
         .Times(1);
 
-    std::unique_ptr<KeyExchange> decapKex;
+    std::shared_ptr<KeyExchange> decapKex;
     switch (testParam.group) {
       case NamedGroup::x25519: {
         decapKex = std::make_unique<X25519KeyExchange>();

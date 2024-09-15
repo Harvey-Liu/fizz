@@ -16,7 +16,7 @@ namespace ech {
 
 struct DecrypterParams {
   ECHConfig echConfig;
-  std::unique_ptr<KeyExchange> kex;
+  std::shared_ptr<KeyExchange> kex;
 };
 
 struct DecrypterResult {

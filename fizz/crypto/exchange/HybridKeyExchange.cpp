@@ -10,8 +10,8 @@
 namespace fizz {
 
 HybridKeyExchange::HybridKeyExchange(
-    std::unique_ptr<KeyExchange> first,
-    std::unique_ptr<KeyExchange> second) {
+    std::shared_ptr<KeyExchange> first,
+    std::shared_ptr<KeyExchange> second) {
   if (first == nullptr || second == nullptr) {
     throw std::runtime_error("Passing null KeyExchange Object!");
   }
@@ -66,7 +66,7 @@ std::unique_ptr<folly::IOBuf> HybridKeyExchange::generateSharedSecret(
 /**
  * Deep copy of first and second.
  */
-std::unique_ptr<KeyExchange> HybridKeyExchange::clone() const {
+std::shared_ptr<KeyExchange> HybridKeyExchange::clone() const {
   auto kexCopy = std::make_unique<HybridKeyExchange>(
       firstKex_->clone(), secondKex_->clone());
   return kexCopy;

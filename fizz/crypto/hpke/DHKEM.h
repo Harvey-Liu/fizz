@@ -23,13 +23,13 @@ class DHKEM {
   };
 
   DHKEM(
-      std::unique_ptr<KeyExchange> kex,
+      std::shared_ptr<KeyExchange> kex,
       NamedGroup group,
       std::unique_ptr<fizz::hpke::Hkdf> hkdf);
 
   DHKEM(
-      std::unique_ptr<KeyExchange> kex,
-      std::unique_ptr<KeyExchange> authKex,
+      std::shared_ptr<KeyExchange> kex,
+      std::shared_ptr<KeyExchange> authKex,
       NamedGroup group,
       std::unique_ptr<fizz::hpke::Hkdf> hkdf);
 
@@ -73,8 +73,8 @@ class DHKEM {
   std::unique_ptr<folly::IOBuf> extractAndExpand(
       std::unique_ptr<folly::IOBuf> dh,
       std::unique_ptr<folly::IOBuf> kemContext);
-  std::unique_ptr<KeyExchange> kex_;
-  std::unique_ptr<KeyExchange> authKex_;
+  std::shared_ptr<KeyExchange> kex_;
+  std::shared_ptr<KeyExchange> authKex_;
   NamedGroup group_;
   std::unique_ptr<fizz::hpke::Hkdf> hkdf_;
 };

@@ -47,7 +47,7 @@ class KeyExchange {
    * Clone this key exchange. A key exchange must only be cloned after
    * a key pair is set.
    */
-  virtual std::unique_ptr<KeyExchange> clone() const = 0;
+  virtual std::shared_ptr<KeyExchange> clone() const = 0;
 
   /**
    * @return The size (in bytes) of the expected key share from the peer.

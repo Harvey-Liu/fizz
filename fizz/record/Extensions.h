@@ -58,6 +58,19 @@ struct ClientPresharedKey {
   std::vector<PskIdentity> identities;
   std::vector<PskBinder> binders;
   static constexpr ExtensionType extension_type = ExtensionType::pre_shared_key;
+
+  ClientPresharedKey() = default;
+
+  ClientPresharedKey& operator=(ClientPresharedKey&& rhs) {
+    identities = std::move(rhs.identities);
+    binders = std::move(binders);
+  }
+
+  ClientPresharedKey(ClientPresharedKey&& rhs) 
+    : identities(std::move(rhs.identities))
+    , binders(std::move(rhs.binders)) {
+
+  }
 };
 
 struct ServerPresharedKey {

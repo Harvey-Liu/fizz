@@ -131,7 +131,7 @@ folly::ssl::EvpPkeyUniquePtr FizzUtil::decryptPrivateKey(
   return pkey;
 }
 
-std::unique_ptr<KeyExchange> FizzUtil::createKeyExchangeFromBuf(
+std::shared_ptr<KeyExchange> FizzUtil::createKeyExchangeFromBuf(
     hpke::KEMId kemId,
     folly::ByteRange privKey) {
   switch (kemId) {

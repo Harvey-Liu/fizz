@@ -169,6 +169,8 @@ class AsyncFizzBase : public folly::WriteChainAsyncTransportWrapper<
       folly::AsyncTransportWrapper::UniquePtr transport,
       TransportOptions options);
 
+  AsyncFizzBase(AsyncFizzBase&& rhs);
+
   ~AsyncFizzBase() override;
 
   /**

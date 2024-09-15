@@ -26,7 +26,7 @@ class MockKeyExchange : public KeyExchange {
       generateSharedSecret,
       (folly::ByteRange keyShare),
       (const));
-  MOCK_METHOD(std::unique_ptr<KeyExchange>, clone, (), (const));
+  MOCK_METHOD(std::shared_ptr<KeyExchange>, clone, (), (const));
   MOCK_METHOD(std::size_t, getExpectedKeyShareSize, (), (const));
   int keyGenerated = 0;
 
@@ -84,7 +84,7 @@ class MockAsyncKeyExchange : public AsyncKeyExchange {
       generateSharedSecret,
       (folly::ByteRange keyShare),
       (const));
-  MOCK_METHOD(std::unique_ptr<KeyExchange>, clone, (), (const));
+  MOCK_METHOD(std::shared_ptr<KeyExchange>, clone, (), (const));
   MOCK_METHOD(std::size_t, getExpectedKeyShareSize, (), (const));
   MOCK_METHOD(
       folly::SemiFuture<DoKexResult>,

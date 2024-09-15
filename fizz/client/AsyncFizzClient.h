@@ -132,7 +132,7 @@ class AsyncFizzClientT : public AsyncFizzBase,
    * Internal state access for logging/testing.
    */
   const State& getState() const {
-    return state_;
+    return *state_.get();
   }
 
   folly::Optional<CipherSuite> getCipher() const override;
@@ -307,7 +307,7 @@ class AsyncFizzClientT : public AsyncFizzBase,
 
   folly::Optional<std::string> pskIdentity_;
 
-  State state_;
+  std::shared_ptr<State> state_;
 
   ActionMoveVisitor visitor_;
 

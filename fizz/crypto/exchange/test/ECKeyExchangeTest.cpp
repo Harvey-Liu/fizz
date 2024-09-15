@@ -282,7 +282,7 @@ TEST_P(ECDHTest, TestKexClone) {
 
     auto pkeyPeerKey = createPublicKey(GetParam());
 
-    std::unique_ptr<KeyExchange> chosenKex;
+    std::shared_ptr<KeyExchange> chosenKex;
     switch (GetParam().key) {
       case KeyType::P256: {
         P256KeyExchange kex;

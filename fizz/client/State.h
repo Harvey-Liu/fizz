@@ -594,7 +594,7 @@ class State {
 
   folly::Optional<ECHState> echState_;
 
-  mutable folly::Optional<std::map<NamedGroup, std::unique_ptr<KeyExchange>>>
+  mutable folly::Optional<std::map<NamedGroup, std::shared_ptr<KeyExchange>>>
       keyExchangers_;
   folly::Optional<std::vector<ExtensionType>> requestedExtensions_;
 

@@ -38,7 +38,7 @@ folly::Optional<SupportedECHConfig> selectECHConfig(
     std::vector<hpke::AeadId> supportedAeads);
 
 hpke::SetupResult constructHpkeSetupResult(
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     const SupportedECHConfig& supportedConfig);
 
 std::unique_ptr<folly::IOBuf> makeClientHelloAad(
@@ -110,7 +110,7 @@ std::unique_ptr<hpke::HpkeContext> setupDecryptionContext(
     const ECHConfig& echConfig,
     HpkeSymmetricCipherSuite cipherSuite,
     const std::unique_ptr<folly::IOBuf>& encapsulatedKey,
-    std::unique_ptr<KeyExchange> kex,
+    std::shared_ptr<KeyExchange> kex,
     uint64_t seqNum);
 
 std::unique_ptr<folly::IOBuf> getRecordDigest(
